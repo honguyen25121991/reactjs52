@@ -25,7 +25,7 @@ export default class BaiTapChonMauXe extends Component {
     return (
       <div>
         <section className="show-room">
-          <h2 className="text-center">Bài Tập Chọn Màu Xe</h2>
+          <h2 className="text-center">Bài Tập Chọn Màu Xe1</h2>
           <div className="container">
             <div className="chose__color d-flex justify-content-around">
               <button className="btn" onClick ={()=>this.handleChangeColor("./img/car/products/black-car.jpg")}>
