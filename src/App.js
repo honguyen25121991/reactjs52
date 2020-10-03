@@ -9,7 +9,7 @@ import DemoDataBinding from "./DataBinding/DemoDataBinding";
 import HandleEvens from "./HandleEvents/FunctionEvents"
 import ClassEvents from "./HandleEvents/ClassEvents";
 import DemoConditionalAndState from "./DemoLogin/DemoConditionalAndState"
-
+import BaiTapChonMauXe from "./BaiTapDoiMauXe/"
 function App() {
   return (
     <div>
@@ -19,8 +19,9 @@ function App() {
       {/* <DemoDataBinding/>
       <HandleEvens/> */}
       {/* <ClassEvents/> */}
-      <DemoConditionalAndState/>
-
+      {/* <DemoConditionalAndState/> */}
+      <BaiTapChonMauXe/>
+    
     </div>
   );
 }
