@@ -17,7 +17,8 @@ export default class BaiTapChonMauXe extends Component {
     // console.log(imgCar);
     // cap nhat
     this.setState({
-        imgCar: imgCar,
+        // imgCar: imgCar,
+        imgCar,// object litenal;
     })
  }
   render() {
