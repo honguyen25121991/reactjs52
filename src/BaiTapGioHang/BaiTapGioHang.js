@@ -18,6 +18,7 @@ import Modal from "./Modal";
 export default class BaiTapGioHang extends Component {
   danhSachSanPham = [
     {
+      giaBan: `1000$`,
       maSanPham: "1",
       tenSanPham: "VS Phone",
       hinhAnh: "./img/vsphone.jpg",
@@ -29,6 +30,7 @@ export default class BaiTapGioHang extends Component {
       rom: "6 GB",
     },
     {
+      giaBan: `1000$`,
       maSanPham: "2",
       tenSanPham: "Meizu phone",
       hinhAnh: "./img/meizuphone.jpg",
@@ -42,6 +44,7 @@ export default class BaiTapGioHang extends Component {
       rom: "6 GB",
     },
     {
+      giaBan: `1000$`,
       maSanPham: "3",
       tenSanPham: "Apple phone",
       hinhAnh: "./img/applephone.jpg",
@@ -71,10 +74,28 @@ export default class BaiTapGioHang extends Component {
   };
 
   handleAddSP = (sanPham) => {
-    console.log("sanPham:", sanPham);
+    /**
+     * FindIndex  tìm xem có tồn tại trong mảng hay khong 
+     * nếu có tồn tại thì trả về index
+     * nếu khong tồn tại thì trả về -1
+     */
+   
     let danhSachGioHang = [...this.state.danhSachGioHang];
+     const index = danhSachGioHang.findIndex((cart)=>{
+      return cart.maSanPham === sanPham.maSanPham;
+    });
+    if (index !== -1){
+      //tìm thấy
+      // cập nhật số lượng
+      danhSachGioHang[index].soLuong +=1;
+    }else{
+      // không tìm thây
+      // xét số lượng =1, và push vào mảng
+      sanPham.soLuong = 1;
+      danhSachGioHang = [...danhSachGioHang,sanPham]
+    }
     // danhSachGioHang.push(sanPham);
-    danhSachGioHang = [...danhSachGioHang, sanPham];
+    // danhSachGioHang = [...danhSachGioHang, sanPham];
     //setState
     this.setState({
       danhSachGioHang: danhSachGioHang,
@@ -88,6 +109,14 @@ export default class BaiTapGioHang extends Component {
       sanPhamChiTiet: sanPham,
     });
   };
+
+  handleDelete = (cart)=>{
+    let danhSachGioHang = this.state.danhSachGioHang;
+    danhSachGioHang.filter((item)=>{
+      return cart.maSanPham !== item.maSanPham;
+    });
+    this.setState({danhSachGioHang});
+  }
 
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
@@ -121,7 +150,9 @@ export default class BaiTapGioHang extends Component {
             <div className="container">
               <div className="row">{this.renderDanhSachSanPham()}</div>
             </div>
-            <Modal/>
+            <Modal 
+            handleDelete = {this.handleDelete}
+            danhSachGioHang={this.state.danhSachGioHang} />
             <div className="row">
               <div className="col-sm-5">
                 <img

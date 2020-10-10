@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import CartItem from "./CartItem";
 
 export default class Modal extends Component {
+  renderCartList = () =>{
+    return this.props.danhSachGioHang.map((cart,index)=>{
+      return <CartItem 
+      handleDelete = {this.props.handleDelete}
+      cart={cart} key={index}/>
+    })
+  };
   render() {
     return (
       <div
@@ -42,11 +49,7 @@ export default class Modal extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  <CartItem />
-                  <CartItem />
-                  <CartItem />
-                  <CartItem />
-                  <CartItem />
+                {this.renderCartList()}
                 </tbody>
               </table>
             </div>
