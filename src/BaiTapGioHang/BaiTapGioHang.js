@@ -19,7 +19,7 @@ export default class BaiTapGioHang extends Component {
     {
       maSanPham: "1",
       tenSanPham: "VS Phone",
-      hinhAnh: "./img/vsphone.jpg",
+      hinhAnh: "./img/applephone.jpg",
       manHinh: `AMOLED, 6.2", Full HD+`,
       heDieuHanh: "Android 9.0 (Pie)",
       cameraTruoc: "20 MP",
