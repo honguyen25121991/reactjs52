@@ -65,6 +65,10 @@ export default class BaiTapGioHang extends Component {
     },
   };
 
+  handleDetail = () => {
+    console.log("run handleDetail");
+  };
+
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
       return (
