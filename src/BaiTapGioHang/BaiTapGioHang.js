@@ -3,7 +3,7 @@
  * 1. dàn layout ( html css ) - done
  * 2. xác định data thay đổi và lưu vào state - done
  * 3. lấy data trong state đi binding ra jsx - done
- * 4. render mãng dử liệu
+ * 4. render mãng dử liệu - done
  * 5. xây dựng chức năng xem chi tiết
  * 6. xây dựng chức năng thêm giỏ hàng
  * 7. xây dựng chức năng xóa sp khoải giỏ hàng
@@ -13,13 +13,14 @@
 
 import React, { Component } from "react";
 import SanPham from "./SanPham";
+import Modal from "./Modal";
 
 export default class BaiTapGioHang extends Component {
   danhSachSanPham = [
     {
       maSanPham: "1",
       tenSanPham: "VS Phone",
-      hinhAnh: "./img/applephone.jpg",
+      hinhAnh: "./img/vsphone.jpg",
       manHinh: `AMOLED, 6.2", Full HD+`,
       heDieuHanh: "Android 9.0 (Pie)",
       cameraTruoc: "20 MP",
@@ -31,23 +32,26 @@ export default class BaiTapGioHang extends Component {
       maSanPham: "2",
       tenSanPham: "Meizu phone",
       hinhAnh: "./img/meizuphone.jpg",
-      manHinh: `AMOLED, 6.2", Full HD+`,
-      heDieuHanh: "Android 9.0 (Pie)",
+      manHinh: `AMOLED, FHD+ 2232 x 1080 pixels
+      `,
+      heDieuHanh: `Android 9.0 (Pie)
+      `,
       cameraTruoc: "25 MP",
       cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-      ram: "8 GB",
-      rom: "16 GB",
+      ram: "4 GB",
+      rom: "6 GB",
     },
     {
       maSanPham: "3",
       tenSanPham: "Apple phone",
       hinhAnh: "./img/applephone.jpg",
-      manHinh: `AMOLED, 6.2", Full HD+`,
+      manHinh: `OLED, 6.5", 1242 x 2688 Pixels
+      `,
       heDieuHanh: "IOS",
       cameraTruoc: "20 MP",
       cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-      ram: "64 GB",
-      rom: "86 GB",
+      ram: "4 GB",
+      rom: "6 GB",
     },
   ];
 
@@ -63,17 +67,37 @@ export default class BaiTapGioHang extends Component {
       ram: "4 GB",
       rom: "6 GB",
     },
+    danhSachGioHang: [],
   };
 
-  handleDetail = () => {
+  handleAddSP = (sanPham) => {
+    console.log("sanPham:", sanPham);
+    let danhSachGioHang = [...this.state.danhSachGioHang];
+    // danhSachGioHang.push(sanPham);
+    danhSachGioHang = [...danhSachGioHang, sanPham];
+    //setState
+    this.setState({
+      danhSachGioHang: danhSachGioHang,
+    });
+    //  console.log(this.state.danhSachGioHang);
+  };
+
+  handleDetail = (sanPham) => {
     console.log("run handleDetail");
+    this.setState({
+      sanPhamChiTiet: sanPham,
+    });
   };
 
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
       return (
         <div className="col-sm-4">
-          <SanPham sanPham={sanPham} />
+          <SanPham
+            handleDetail={this.handleDetail}
+            sanPham={sanPham}
+            handleAddSP={this.handleAddSP}
+          />
         </div>
       );
     });
@@ -91,83 +115,13 @@ export default class BaiTapGioHang extends Component {
                 data-toggle="modal"
                 data-target="#modelId"
               >
-                Giỏ hàng (5)
+                Giỏ hàng ()
               </button>
             </div>
             <div className="container">
               <div className="row">{this.renderDanhSachSanPham()}</div>
             </div>
-            <div
-              className="modal fade"
-              id="modelId"
-              tabIndex={-1}
-              aria-labelledby="modelTitleId"
-              aria-hidden="true"
-              style={{ display: "none" }}
-            >
-              <div
-                className="modal-dialog"
-                role="document"
-                style={{ maxWidth: 1000 }}
-              >
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Giỏ hàng</h5>
-                    <button
-                      type="button"
-                      className="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div className="modal-body">
-                    <table className="table">
-                      <thead>
-                        <tr>
-                          <th>Mã sản phẩm</th>
-                          <th>tên sản phẩm</th>
-                          <th>hình ảnh</th>
-                          <th>số lượng</th>
-                          <th>đơn giá</th>
-                          <th>thành tiền</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>Iphone XS Max</td>
-                          <td>
-                            <img src="./img/applephone.jpg" width={50} alt />
-                          </td>
-                          <td>
-                            <button>-</button>5<button>+</button>
-                          </td>
-                          <td>27000000</td>
-                          <td>135000000</td>
-                          <td>
-                            <button className="btn btn-danger">Delete</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Save
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Modal/>
             <div className="row">
               <div className="col-sm-5">
                 <img
