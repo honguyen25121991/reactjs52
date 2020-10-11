@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
-export default class SanPham extends Component {
+import {connect} from "react-redux";
+ 
+class SanPham extends Component {
   render() {
     return (
       <div className="card">
@@ -30,3 +31,19 @@ export default class SanPham extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    // key : value 
+    // key vẫn là props của component : Value là phương thức gửi acction lên store
+    handleDetail:(sanPham)=>{
+      const action = {
+        type : "DETAIL_PRODUCT",
+        payload : sanPham,
+      };
+      dispatch(action);
+    }
+  };
+}
+
+export default connect(null,mapDispatchToProps)(SanPham);
