@@ -13,6 +13,7 @@ import BaiTapChonMauXe from "./baiTapDoiMauXe/BaiTapDoiMauXe";
 import DemoCourse from "./ListAndKeys/DemoCourse"
 import DemoProps from "./Props/DemoProps"
 import BaiTapGioHang from "./BaiTapGioHang/BaiTapGioHang"
+import BaiTapGioHangRedux from "./BaiTapGioHangRedux/BaiTapGioHang"
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
       {/* <BaiTapChonMauXe/> */}
       {/* <DemoCourse/> */}
       {/* <DemoProps/> */}
-      <BaiTapGioHang/>
+      {/* <BaiTapGioHang/> */}
+      <BaiTapGioHangRedux/>
     </div>
   );
 }

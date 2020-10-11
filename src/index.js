@@ -10,6 +10,15 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.min";
 import "../node_modules/jquery/dist/jquery.slim.min";
 import "../node_modules/popper.js/dist/umd/popper.min";
+import {createStore} from "redux";
+import {Provider} from 'react-redux'
+import rootReducer from "./redux/reduces";
+
+
+const store = createStore(rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+;
+
 
 // document.getElementById("root").innerHTML = `
 //   <React.StrictMode>
@@ -20,7 +29,9 @@ import "../node_modules/popper.js/dist/umd/popper.min";
 ReactDOM.render(
   // nội dung in ra html
   <React.StrictMode>
+    <Provider store={store}>
     <App />
+    </Provider>
   </React.StrictMode>,
   // vị trí in ra html
   document.getElementById("root")
