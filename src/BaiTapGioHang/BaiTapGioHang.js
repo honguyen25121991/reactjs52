@@ -75,25 +75,30 @@ export default class BaiTapGioHang extends Component {
 
   handleAddSP = (sanPham) => {
     /**
-     * FindIndex  tìm xem có tồn tại trong mảng hay khong 
+     * FindIndex  tìm xem có tồn tại trong mảng hay khong
      * nếu có tồn tại thì trả về index
      * nếu khong tồn tại thì trả về -1
      */
-   
+
     let danhSachGioHang = [...this.state.danhSachGioHang];
-     const index = danhSachGioHang.findIndex((cart)=>{
+    const index = danhSachGioHang.findIndex((cart) => {
       return cart.maSanPham === sanPham.maSanPham;
     });
-    if (index !== -1){
+    if (index !== -1) {
       //tìm thấy
       // cập nhật số lượng
-      danhSachGioHang[index].soLuong +=1;
-    }else{
+      danhSachGioHang[index].soLuong += 1;
+    } else {
       // không tìm thây
       // xét số lượng =1, và push vào mảng
-      sanPham.soLuong = 1;
-      danhSachGioHang = [...danhSachGioHang,sanPham]
+      if (danhSachGioHang[index].soLuong >1) {
+        sanPham.soLuong -= 1;
+        danhSachGioHang = [...danhSachGioHang, sanPham];
+      }else {
+        alert ("khong duoc giam nua")
+      }
     }
+
     // danhSachGioHang.push(sanPham);
     // danhSachGioHang = [...danhSachGioHang, sanPham];
     //setState
@@ -104,19 +109,18 @@ export default class BaiTapGioHang extends Component {
   };
 
   handleDetail = (sanPham) => {
-    console.log("run handleDetail");
     this.setState({
       sanPhamChiTiet: sanPham,
     });
   };
 
-  handleDelete = (cart)=>{
+  handleDelete = (cart) => {
     let danhSachGioHang = this.state.danhSachGioHang;
-    danhSachGioHang.filter((item)=>{
+    danhSachGioHang.filter((item) => {
       return cart.maSanPham !== item.maSanPham;
     });
-    this.setState({danhSachGioHang});
-  }
+    this.setState({ danhSachGioHang });
+  };
 
   renderDanhSachSanPham = () => {
     return this.danhSachSanPham.map((sanPham, index) => {
@@ -132,6 +136,14 @@ export default class BaiTapGioHang extends Component {
     });
   };
 
+  renderTotal = ()=>{
+      let {danhSachGioHang} = this.state;
+      let total = danhSachGioHang.reduce((tong,cartHienTai)=> {
+        return (tong+= cartHienTai.soLuong)
+      },0);
+      return total;
+  }
+
   render() {
     return (
       <div>
@@ -144,15 +156,16 @@ export default class BaiTapGioHang extends Component {
                 data-toggle="modal"
                 data-target="#modelId"
               >
-                Giỏ hàng ()
+                Giỏ hàng :({this.renderTotal()})
               </button>
             </div>
             <div className="container">
               <div className="row">{this.renderDanhSachSanPham()}</div>
             </div>
-            <Modal 
-            handleDelete = {this.handleDelete}
-            danhSachGioHang={this.state.danhSachGioHang} />
+            <Modal
+              handleDelete={this.handleDelete}
+              danhSachGioHang={this.state.danhSachGioHang}
+            />
             <div className="row">
               <div className="col-sm-5">
                 <img
