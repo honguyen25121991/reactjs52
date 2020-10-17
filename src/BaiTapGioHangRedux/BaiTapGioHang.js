@@ -153,8 +153,8 @@ class BaiTapGioHang extends Component {
       return (
         <div className="col-sm-4" key={index}>
           <SanPham
-            handleDetail={this.handleDetail}
-            handleAddSP={this.handleAddSP}
+            // handleDetail={this.handleDetail}
+            // handleAddSP={this.handleAddSP}
             sanPham={sanPham}
           />
         </div>
