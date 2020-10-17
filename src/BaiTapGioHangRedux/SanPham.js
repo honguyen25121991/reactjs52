@@ -21,7 +21,7 @@ class SanPham extends Component {
             className="btn btn-danger"
             onClick={() => {
               const sanPhamDuocNhan = this.props.sanPham;
-              this.props.handleAddSP(sanPhamDuocNhan);
+              this.props.handleAddCart(sanPhamDuocNhan);
             }}
           >
             Thêm giỏ hàng
@@ -42,6 +42,13 @@ const mapDispatchToProps = (dispatch) =>{
         payload : sanPham,
       };
       dispatch(action);
+    },
+    handleAddCart : (product)=>{
+      const acction ={
+        type :"ADD_PRODUCT",
+        payload :product,
+      };
+      dispatch(acction);
     }
   };
 }

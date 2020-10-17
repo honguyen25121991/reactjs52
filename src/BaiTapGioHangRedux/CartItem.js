@@ -1,4 +1,6 @@
+import { type } from "jquery";
 import React, { Component } from "react";
+import {actDelete} from "../redux/actions/index";
 
 class CartItem extends Component {
   render() {
@@ -13,7 +15,12 @@ class CartItem extends Component {
           <button
             onClick={() => {
               const cartDuocNhan = this.props.cart;
-              this.props.handleTangGiam(cartDuocNhan, false);
+              // this.props.handleTangGiam(cartDuocNhan, false);
+              const data = {
+                product : cartDuocNhan,
+                status :false,
+              };
+              this.props.tangGiamSL(data);
             }}
           >
             -
@@ -22,7 +29,14 @@ class CartItem extends Component {
           <button
             onClick={() => {
               const cartDuocNhan = this.props.cart;
-              this.props.handleTangGiam(cartDuocNhan, true);
+              // this.props.handleTangGiam(cartDuocNhan, true);
+              const cartDuocNhan = this.props.cart;
+              // this.props.handleTangGiam(cartDuocNhan, false);
+              const data = {
+                product : cartDuocNhan,
+                status :true,
+              };
+              this.props.tangGiamSL(data);
             }}
           >
             +
@@ -43,6 +57,23 @@ class CartItem extends Component {
         </td>
       </tr>
     );
+  }
+}
+const mapDispatchoProps = dispatch =>{
+  return {
+     deleteProDuct : (product)=>{
+       const action = {
+         type : "DELETE_PRODUCT",
+         payloadt : product,
+       };
+       dispatch(action)
+     },
+     tangGiamSL: (data) =>{
+       const action = {
+        type : "TANG_GIAM_SL",
+        payloadt : data,
+       }     
+     }
   }
 }
 

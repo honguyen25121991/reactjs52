@@ -56,18 +56,18 @@ class BaiTapGioHang extends Component {
   //   },
   // ];
 
-  state = {
-    sanPhamChiTiet: {
-      maSanPham: "1",
-      tenSanPham: "",
-      hinhAnh: "./img/vsphone.jpg",
-      manHinh: `AMOLED, 6.2", Full HD+`,
-      heDieuHanh: "Android 9.0 (Pie)",
-      cameraTruoc: "20 MP",
-      cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-      ram: "4 GB",
-      rom: "6 GB",
-    },
+  // state = {
+  //   sanPhamChiTiet: {
+  //     maSanPham: "1",
+  //     tenSanPham: "",
+  //     hinhAnh: "./img/vsphone.jpg",
+  //     manHinh: `AMOLED, 6.2", Full HD+`,
+  //     heDieuHanh: "Android 9.0 (Pie)",
+  //     cameraTruoc: "20 MP",
+  //     cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
+  //     ram: "4 GB",
+  //     rom: "6 GB",
+  //   },
     danhSachGioHang: [],
   };
 
@@ -99,35 +99,35 @@ class BaiTapGioHang extends Component {
     });
   };
 
-  handleDelete = (cart) => {
-    let danhSachGioHang = this.state.danhSachGioHang;
-    danhSachGioHang = danhSachGioHang.filter((item) => {
-      return cart.maSanPham !== item.maSanPham;
-    });
-    this.setState({ danhSachGioHang });
-  };
+  // handleDelete = (cart) => {
+  //   let danhSachGioHang = this.state.danhSachGioHang;
+  //   danhSachGioHang = danhSachGioHang.filter((item) => {
+  //     return cart.maSanPham !== item.maSanPham;
+  //   });
+  //   this.setState({ danhSachGioHang });
+  // };
 
-  handleAddSP = (sanPhan) => {
-    let danhSachGioHang = [...this.state.danhSachGioHang];
-    /**
-     * findIndex tìm xem có tồn tại trong mãng hay không :
-     *  nếu có tồn tại trả về index
-     *  nếu ko tồn tại trả về -1
-     */
-    const index = danhSachGioHang.findIndex((cart) => {
-      return cart.maSanPham === sanPhan.maSanPham;
-    });
-    if (index !== -1) {
-      // tìm thấy
-      // cập nhật số lượng
-      danhSachGioHang[index].soLuong += 1;
-    } else {
-      // không tìm thấy
-      // set số lượng = 1 , push vào mãng
-      sanPhan.soLuong = 1;
-      // danhSachGioHang.push(sanPhan);
-      danhSachGioHang = [...danhSachGioHang, sanPhan];
-    }
+  // handleAddSP = (sanPhan) => {
+  //   let danhSachGioHang = [...this.state.danhSachGioHang];
+  //   /**
+  //    * findIndex tìm xem có tồn tại trong mãng hay không :
+  //    *  nếu có tồn tại trả về index
+  //    *  nếu ko tồn tại trả về -1
+  //    */
+  //   const index = danhSachGioHang.findIndex((cart) => {
+  //     return cart.maSanPham === sanPhan.maSanPham;
+  //   });
+  //   if (index !== -1) {
+  //     // tìm thấy
+  //     // cập nhật số lượng
+  //     danhSachGioHang[index].soLuong += 1;
+  //   } else {
+  //     // không tìm thấy
+  //     // set số lượng = 1 , push vào mãng
+  //     sanPhan.soLuong = 1;
+  //     // danhSachGioHang.push(sanPhan);
+  //     danhSachGioHang = [...danhSachGioHang, sanPhan];
+  //   }
 
     // setState
     this.setState(
@@ -183,7 +183,7 @@ class BaiTapGioHang extends Component {
             <Modal
               // handleDelete={this.handleDelete}
               handleTangGiam={this.handleTangGiam}
-              danhSachGioHang={this.state.danhSachGioHang}
+              // danhSachGioHang={this.state.danhSachGioHang}
             />
             <div className="row">
               <div className="col-sm-5">
@@ -238,7 +238,8 @@ const mapStateToProps = (state)=>{
 
   // key:value
   danhSachSanPham: state.gioHangReducer.danhSachSanPham,
-  sanPhamChiTiet : state.gioHangReducer.sanPhamChiTiet
+  sanPhamChiTiet : state.gioHangReducer.sanPhamChiTiet,
+  
   }
  
 }
