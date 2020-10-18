@@ -6,8 +6,11 @@ class Users extends Component {
 
   rederTable = ()=>{
     const {userList} = this.props;
+    return userList.map((item)=>{
+      return <UserItem key ={item.id }   user={item} />
+    })
   }
-  render() {
+  render() {   
     return (
       <div>
         <table className="table">
@@ -21,8 +24,7 @@ class Users extends Component {
             </tr>
           </thead>
           <tbody>
-            <UserItem />
-            <UserItem />            
+            {this.rederTable()}  
           </tbody>
         </table>
       </div>
@@ -35,5 +37,6 @@ const mapStateToProps = state =>{
     userList : state.userReduces.userList,
   };
 };
+
 
 export default connect(mapStateToProps,null)(Users);
