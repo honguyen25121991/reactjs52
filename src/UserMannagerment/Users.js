@@ -1,7 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import UserItem from "./UserItem";
 
 class Users extends Component {
+
+  rederTable = ()=>{
+    const {userList} = this.props;
+  }
   render() {
     return (
       <div>
@@ -17,8 +22,7 @@ class Users extends Component {
           </thead>
           <tbody>
             <UserItem />
-            <UserItem />
-            <UserItem />
+            <UserItem />            
           </tbody>
         </table>
       </div>
@@ -26,4 +30,10 @@ class Users extends Component {
   }
 }
 
-export default Users;
+const mapStateToProps = state =>{
+  return {
+    userList : state.userReduces.userList,
+  };
+};
+
+export default connect(mapStateToProps,null)(Users);
