@@ -14,6 +14,7 @@ import DemoCourse from "./ListAndKeys/DemoCourse"
 import DemoProps from "./Props/DemoProps"
 import BaiTapGioHang from "./BaiTapGioHang/BaiTapGioHang"
 import BaiTapGioHangRedux from "./BaiTapGioHangRedux/BaiTapGioHang"
+import UserMannagerment from "./UserMannagerment"
 
 function App() {
   return (
@@ -29,7 +30,8 @@ function App() {
       {/* <DemoCourse/> */}
       {/* <DemoProps/> */}
       {/* <BaiTapGioHang/> */}
-      <BaiTapGioHangRedux/>
+      {/* <BaiTapGioHangRedux/> */}
+      <UserMannagerment/>
     </div>
   );
 }
