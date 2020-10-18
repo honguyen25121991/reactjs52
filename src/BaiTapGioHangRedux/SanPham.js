@@ -22,7 +22,6 @@ class SanPham extends Component {
             className="btn btn-danger"
             onClick={() => {
               const sanPhamDuocNhan = this.props.sanPham;
-              this.props.handleAddCart(sanPhamDuocNhan);
             }}
           >
             Thêm giỏ hàng
