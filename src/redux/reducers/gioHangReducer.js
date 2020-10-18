@@ -1,4 +1,11 @@
-const initalState = {
+import {
+  DELETE_PRODUCT,
+  TANG_GIAM_SL,
+  DETAIL_PRODUCT,
+  ADD_PRODUCT,
+} from "./../constants";
+
+const initialState = {
   sanPhamChiTiet: {
     maSanPham: "1",
     tenSanPham: "",
@@ -11,7 +18,6 @@ const initalState = {
     rom: "6 GB",
   },
   danhSachGioHang: [],
-
   danhSachSanPham: [
     {
       giaBan: 170000000,
@@ -51,65 +57,70 @@ const initalState = {
     },
   ],
 };
-
-const gioHangReducer = (state = initalState, actions) => {
+const gioHangreducer = (state = initialState, actions) => {
   switch (actions.type) {
-    case "DETAIL_PRODUCT": {
+    case DETAIL_PRODUCT: {
       state.sanPhamChiTiet = actions.payload;
       return { ...state };
     }
-    case "ADD_PRODUCT": {
+    case ADD_PRODUCT: {
+      console.log(actions);
       let danhSachGioHang = [...state.danhSachGioHang];
       const index = state.danhSachGioHang.findIndex((item) => {
         return item.maSanPham === actions.payload.maSanPham;
       });
       if (index !== -1) {
-        //tim thay ==> update sl
-        danhSachGioHang[index].soLuong += 1;
+        //Tim thay => Update SL
+        const product = { ...danhSachGioHang[index] };
+        product.soLuong++;
+        danhSachGioHang[index] = product;
       } else {
-        // Khong tim thay
-        //  add vao gio hang
+        //Add vao gio hang
         actions.payload.soLuong = 1;
         danhSachGioHang = [...danhSachGioHang, actions.payload];
       }
       state.danhSachGioHang = danhSachGioHang;
       return { ...state };
     }
-    case "DELETE_PRODUCT": {
-      console.log("aa");
+
+    case DELETE_PRODUCT: {
       let danhSachGioHang = [...state.danhSachGioHang];
       danhSachGioHang = danhSachGioHang.filter((item) => {
         return item.maSanPham !== actions.payload.maSanPham;
       });
-      state.danhSachGioHang = danhSachGioHang;
-      return { ...danhSachGioHang };
-    }case "TANG_GIAM_SL" : {
-      const index = state.danhSachGioHang.findIndex((item)=>{
-        return item.maSanPham === actions.payload.product.maSanPham
-      })
-      if (index!== -1){
-        let danhSachGioHang = [...state.danhSachGioHang];
-        const product = {...state.danhSachGioHang[index]}
-        if (actions.payload.status){
-          //
-          product.soLuong ++;
-          danhSachGioHang[index] = product;
 
-        }else{
-          if (product.soLuong > 1)
-          product.soLuong --;
+      state.danhSachGioHang = danhSachGioHang;
+      return { ...state };
+    }
+
+    case TANG_GIAM_SL: {
+      const index = state.danhSachGioHang.findIndex((item) => {
+        return item.maSanPham === actions.payload.product.maSanPham;
+      });
+      if (index !== -1) {
+        let danhSachGioHang = [...state.danhSachGioHang];
+        const product = { ...state.danhSachGioHang[index] };
+        if (actions.payload.status) {
+          //Tang
+          product.soLuong++;
           danhSachGioHang[index] = product;
+        } else {
+          //Giam
+          if (product.soLuong > 1) {
+            product.soLuong--;
+            danhSachGioHang[index] = product;
+          }
         }
 
+        state.danhSachGioHang = danhSachGioHang;
       }
-      state.danhSachGioHang = danhSachGioHang;
-      return {...state}
+      return { ...state };
     }
 
     default:
       break;
   }
-  return state;
+  return { ...state };
 };
 
-export default gioHangReducer;
+export default gioHangreducer;

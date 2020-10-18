@@ -1,6 +1,6 @@
-import { type } from "jquery";
 import React, { Component } from "react";
-import {actDelete} from "../redux/actions/index";
+import { connect } from "react-redux";
+import { actDelete, actTangGiamSL } from "./../redux/actions";
 
 class CartItem extends Component {
   render() {
@@ -15,10 +15,9 @@ class CartItem extends Component {
           <button
             onClick={() => {
               const cartDuocNhan = this.props.cart;
-              // this.props.handleTangGiam(cartDuocNhan, false);
               const data = {
-                product : cartDuocNhan,
-                status :false,
+                product: cartDuocNhan,
+                status: false,
               };
               this.props.tangGiamSL(data);
             }}
@@ -29,12 +28,9 @@ class CartItem extends Component {
           <button
             onClick={() => {
               const cartDuocNhan = this.props.cart;
-              // this.props.handleTangGiam(cartDuocNhan, true);
-              const cartDuocNhan = this.props.cart;
-              // this.props.handleTangGiam(cartDuocNhan, false);
               const data = {
-                product : cartDuocNhan,
-                status :true,
+                product: cartDuocNhan,
+                status: true,
               };
               this.props.tangGiamSL(data);
             }}
@@ -49,7 +45,7 @@ class CartItem extends Component {
             className="btn btn-danger"
             onClick={() => {
               const cartDuocNhan = this.props.cart;
-              this.props.handleDelete(cartDuocNhan);
+              this.props.deleteProduct(cartDuocNhan);
             }}
           >
             Delete
@@ -59,22 +55,16 @@ class CartItem extends Component {
     );
   }
 }
-const mapDispatchoProps = dispatch =>{
-  return {
-     deleteProDuct : (product)=>{
-       const action = {
-         type : "DELETE_PRODUCT",
-         payloadt : product,
-       };
-       dispatch(action)
-     },
-     tangGiamSL: (data) =>{
-       const action = {
-        type : "TANG_GIAM_SL",
-        payloadt : data,
-       }     
-     }
-  }
-}
 
-export default CartItem;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteProduct: (product) => {
+      dispatch(actDelete(product));
+    },
+    tangGiamSL: (data) => {
+      dispatch(actTangGiamSL(data));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CartItem);

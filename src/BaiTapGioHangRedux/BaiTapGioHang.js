@@ -12,154 +12,27 @@
  */
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import Modal from "./Modal";
 import SanPham from "./SanPham";
+import { connect } from "react-redux";
 
 class BaiTapGioHang extends Component {
-  // danhSachSanPham = [
-  //   {
-  //     giaBan: 170000000,
-  //     maSanPham: "1",
-  //     tenSanPham: "VS Phone",
-  //     hinhAnh: "./img/vsphone.jpg",
-  //     manHinh: `AMOLED, 6.2", Full HD+`,
-  //     heDieuHanh: "Android 9.0 (Pie)",
-  //     cameraTruoc: "20 MP",
-  //     cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-  //     ram: "4 GB",
-  //     rom: "6 GB",
-  //   },
-  //   {
-  //     giaBan: 150000000,
-  //     maSanPham: "2",
-  //     tenSanPham: "Meizu phone",
-  //     hinhAnh: "./img/meizuphone.jpg",
-  //     manHinh: `AMOLED, 6.2", Full HD+`,
-  //     heDieuHanh: "Android 9.0 (Pie)",
-  //     cameraTruoc: "25 MP",
-  //     cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-  //     ram: "8 GB",
-  //     rom: "16 GB",
-  //   },
-  //   {
-  //     giaBan: 120000000,
-  //     maSanPham: "3",
-  //     tenSanPham: "Apple phone",
-  //     hinhAnh: "./img/applephone.jpg",
-  //     manHinh: `AMOLED, 6.2", Full HD+`,
-  //     heDieuHanh: "IOS",
-  //     cameraTruoc: "20 MP",
-  //     cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-  //     ram: "64 GB",
-  //     rom: "86 GB",
-  //   },
-  // ];
-
-  // state = {
-  //   sanPhamChiTiet: {
-  //     maSanPham: "1",
-  //     tenSanPham: "",
-  //     hinhAnh: "./img/vsphone.jpg",
-  //     manHinh: `AMOLED, 6.2", Full HD+`,
-  //     heDieuHanh: "Android 9.0 (Pie)",
-  //     cameraTruoc: "20 MP",
-  //     cameraSau: "Chính 48 MP & Phụ 8 MP, 5 MP",
-  //     ram: "4 GB",
-  //     rom: "6 GB",
-  //   },
-    danhSachGioHang: [],
-  };
-
-  handleTangGiam = (cart, status) => {
-    /**
-     * các bước thực hiện
-     * 1. lấy mãng giỏ hàng
-     * 2. tìm vị trị của phần tử được nhấn
-     * 3. check xem là tăng hay giảm ( status )
-     * 4. cập nhật lại state
-     */
-    // let danhSachGioHang = this.state.danhSachGioHang;
-    // let sanPhamChiTiet = this.state.sanPhamChiTiet;
-    let { danhSachGioHang, sanPhamChiTiet } = this.state;
-    const index = danhSachGioHang.findIndex((item) => {
-      return item.maSanPham === cart.maSanPham;
-    });
-    if (index !== -1) {
-      if (status) {
-        // tăng
-        danhSachGioHang[index].soLuong += 1;
-      } else {
-        // giảm
-        danhSachGioHang[index].soLuong -= 1;
-      }
-    }
-    this.setState({
-      danhSachGioHang,
-    });
-  };
-
-  // handleDelete = (cart) => {
-  //   let danhSachGioHang = this.state.danhSachGioHang;
-  //   danhSachGioHang = danhSachGioHang.filter((item) => {
-  //     return cart.maSanPham !== item.maSanPham;
-  //   });
-  //   this.setState({ danhSachGioHang });
-  // };
-
-  // handleAddSP = (sanPhan) => {
-  //   let danhSachGioHang = [...this.state.danhSachGioHang];
-  //   /**
-  //    * findIndex tìm xem có tồn tại trong mãng hay không :
-  //    *  nếu có tồn tại trả về index
-  //    *  nếu ko tồn tại trả về -1
-  //    */
-  //   const index = danhSachGioHang.findIndex((cart) => {
-  //     return cart.maSanPham === sanPhan.maSanPham;
-  //   });
-  //   if (index !== -1) {
-  //     // tìm thấy
-  //     // cập nhật số lượng
-  //     danhSachGioHang[index].soLuong += 1;
-  //   } else {
-  //     // không tìm thấy
-  //     // set số lượng = 1 , push vào mãng
-  //     sanPhan.soLuong = 1;
-  //     // danhSachGioHang.push(sanPhan);
-  //     danhSachGioHang = [...danhSachGioHang, sanPhan];
-  //   }
-
-    // setState
-    this.setState(
-      {
-        danhSachGioHang: danhSachGioHang,
-      },
-      () => {
-        console.log(this.state.danhSachGioHang);
-      }
-    );
-  };
-
-  handleDetail = (sanPham) => {
-    console.log("run handleDetail");
-    // setState
-    this.setState({
-      sanPhamChiTiet: sanPham,
-    });
-  };
-
   renderDanhSachSanPham = () => {
     return this.props.danhSachSanPham.map((sanPham, index) => {
       return (
         <div className="col-sm-4" key={index}>
-          <SanPham
-            handleDetail={this.handleDetail}
-            handleAddSP={this.handleAddSP}
-            sanPham={sanPham}
-          />
+          <SanPham sanPham={sanPham} />
         </div>
       );
     });
+  };
+
+  renderTotal = () => {
+    let { danhSachGioHang } = this.props;
+    let total = danhSachGioHang.reduce((tong, cartHienTai) => {
+      return (tong += cartHienTai.soLuong);
+    }, 0);
+    return total;
   };
 
   render() {
@@ -174,22 +47,18 @@ class BaiTapGioHang extends Component {
                 data-toggle="modal"
                 data-target="#modelId"
               >
-                Giỏ hàng (5)
+                Giỏ hàng : {this.renderTotal()}
               </button>
             </div>
             <div className="container">
               <div className="row">{this.renderDanhSachSanPham()}</div>
             </div>
-            <Modal
-              // handleDelete={this.handleDelete}
-              handleTangGiam={this.handleTangGiam}
-              // danhSachGioHang={this.state.danhSachGioHang}
-            />
+            <Modal />
             <div className="row">
               <div className="col-sm-5">
                 <img
                   className="img-fluid"
-                  src={this.state.sanPhamChiTiet.hinhAnh}
+                  src={this.props.sanPhamChiTiet.hinhAnh}
                   alt
                 />
               </div>
@@ -232,16 +101,14 @@ class BaiTapGioHang extends Component {
   }
 }
 
-
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
   return {
-
-  // key:value
-  danhSachSanPham: state.gioHangReducer.danhSachSanPham,
-  sanPhamChiTiet : state.gioHangReducer.sanPhamChiTiet,
-  
-  }
- 
-}
+    // key : value
+    // key là props của component : value là state được lưu trên store
+    danhSachSanPham: state.gioHangReducer.danhSachSanPham,
+    sanPhamChiTiet: state.gioHangReducer.sanPhamChiTiet,
+    danhSachGioHang: state.gioHangReducer.danhSachGioHang,
+  };
+};
 
 export default connect(mapStateToProps)(BaiTapGioHang);
