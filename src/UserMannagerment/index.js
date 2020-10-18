@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Search from "./Search";
 import Users from "./Users";
 import Modal from "./Modal";
+import {actEditUser} from "./Modules/actions";
+import {connect} from "react-redux";
 class Home extends Component {
   render() {
     return (
@@ -25,4 +27,12 @@ class Home extends Component {
 }
 
 
-export default Home;
+const mapDispatchToProps = dispatch=>{
+  return {
+    editUser : ()=>{
+      dispatch (actEditUser(null));
+    }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(Home);
